@@ -37,16 +37,32 @@ public class Controller {
     ToDoRepository toDoRepository;
     @Autowired
     MongoTemplate mongoTemplate;
-    @PostMapping("/todos")
+    @PostMapping("/addmodel")
     public ResponseEntity<String> addToDo(@RequestBody String todo) throws JSONException {
         //System.out.println(toDo.charAt(476));
         JsonParser parser = new JsonParser();
         JSONObject toDo =new JSONObject(todo);
         System.out.println(toDo.toString());
         //JsonObject todo = parser.parse(todo1.toString()).getAsJsonObject();
+        Document doc=Document.parse(todo);
+        //System.out.println(doc.toJson());
+        //doc.toJson();
+        mongoTemplate.execute("jSONObject", new CollectionCallback<List<Document>>() {
 
-        //mongoTemplate.save(todo);
-        mongoTemplate.save(toDo);
+            @Override
+            public List<Document> doInCollection(MongoCollection<Document> mongoCollection) throws MongoException, DataAccessException {
+                List<Document> lsit=new ArrayList<>();
+                //FindIterable<Document> cursor = mongoCollection.find();
+                //Iterator it = cursor.iterator();
+                //while (it.hasNext()){
+                  //  lsit.add((Document) it.next());
+                //}
+                mongoCollection.insertOne(doc);
+                return lsit;
+            }
+        });
+        //mongoTemplate.save(toDo);
+        //mongoTemplate.save(doc);
         //toDoRepository.save(todo);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Reponse-from", "ToDoController");
@@ -54,21 +70,21 @@ public class Controller {
 
         return new ResponseEntity(toDo.toString(),headers, HttpStatus.OK);
     }
-    @GetMapping("/todos")
-    public List<String> retrieveToDo(){
+    @GetMapping("/getmodel")
+    public List<Document> retrieveToDo(){
         Query query = new Query();
         //query.addCriteria(Criteria.where("nameValuePairs.partner").is(name));
 
         System.out.println(query.toString());
-        return mongoTemplate.execute("jSONObject", new CollectionCallback<List<String>>() {
+        return mongoTemplate.execute("jSONObject", new CollectionCallback<List<Document>>() {
 
             @Override
-            public List<String> doInCollection(MongoCollection<Document> mongoCollection) throws MongoException, DataAccessException {
-                List<String> lsit=new ArrayList<>();
+            public List<Document> doInCollection(MongoCollection<Document> mongoCollection) throws MongoException, DataAccessException {
+                List<Document> lsit=new ArrayList<>();
                 FindIterable<Document> cursor = mongoCollection.find();
                 Iterator it = cursor.iterator();
                 while (it.hasNext()){
-                    lsit.add(it.next().toString());
+                    lsit.add((Document) it.next());
                 }
                 return lsit;
             }
