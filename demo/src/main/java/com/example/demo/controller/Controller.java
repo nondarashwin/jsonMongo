@@ -32,8 +32,8 @@ import static java.util.stream.Collectors.joining;
 public class Controller {
     @Autowired
     MongoTemplate mongoTemplate;
-    @Autowired
-    Dao dao;
+
+    Dao dao=new Dao();
 
     @PostMapping("/config")
     public ResponseEntity<String> addConfig(@RequestBody String data) throws JSONException {
