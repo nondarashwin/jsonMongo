@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dao.Dao;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.client.FindIterable;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -21,9 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 
@@ -33,23 +32,38 @@ public class Controller {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    Dao dao=new Dao();
-
     @PostMapping("/config")
     public ResponseEntity<String> addConfig(@RequestBody String data) throws JSONException {
 
         JSONObject toDo = new JSONObject(data);
         System.out.println(toDo.toString());
         Document doc = Document.parse(data);
-        dao.insert("jSONObject", doc);
+
+        mongoTemplate.execute("jSONOBJECT", mongoCollection -> {
+            List<org.bson.Document> lsit = new ArrayList<>();
+            mongoCollection.insertOne(doc);
+            return lsit;
+        });
         HttpHeaders headers = new HttpHeaders();
         headers.add("Reponse-from", "ToDoController");
         return new ResponseEntity(toDo.toString(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/config")
-    public List<Document> retrieveConfig() {
-        return dao.findAll("jSONObject");
+    @GetMapping("/config/{category}/{partner}/{product}")
+    public List<Document> retrieveConfig(@PathVariable String category, @PathVariable String partner, @PathVariable String product) {
+        Document doc = new Document();
+        doc.put("category", category);
+        doc.put("partner", partner);
+        doc.put("product", product);
+        return mongoTemplate.execute("jSONObject", mongoCollection -> {
+            List<Document> lsit = new ArrayList<>();
+            FindIterable<Document> cursor = mongoCollection.find(doc);
+            Iterator it = cursor.iterator();
+            while (it.hasNext()) {
+                lsit.add((Document) it.next());
+            }
+            return lsit;
+        });
 
     }
 
@@ -117,7 +131,11 @@ public class Controller {
         dbData.put("product", jsonData.getString("partner"));
         dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
-        dao.insert("requests", doc);
+        mongoTemplate.execute("requests", mongoCollection -> {
+            List<org.bson.Document> lsit = new ArrayList<>();
+            mongoCollection.insertOne(doc);
+            return lsit;
+        });
         return resData;
     }
 
