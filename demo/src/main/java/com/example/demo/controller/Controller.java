@@ -114,6 +114,7 @@ public class Controller {
         dbData.put("userData", jsonData.getJSONObject("formData"));
         dbData.put("category", jsonData.getString("category"));
         dbData.put("partner", jsonData.getString("partner"));
+        dbData.put("product", jsonData.getString("partner"));
         dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
         dao.insert("requests", doc);
