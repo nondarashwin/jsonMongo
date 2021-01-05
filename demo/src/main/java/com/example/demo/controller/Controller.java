@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.repository.ToDoRepository;
+import com.example.demo.service.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
-import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,15 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.mongodb.core.CollectionCallback;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -40,54 +36,24 @@ public class Controller {
     ToDoRepository toDoRepository;
     @Autowired
     MongoTemplate mongoTemplate;
+@Autowired
+    Service service;
 
+    @PostMapping("/config")
+    public ResponseEntity<String> addConfig(@RequestBody String data) throws JSONException {
 
-    @PostMapping("/addmodel")
-    public ResponseEntity<String> addToDo(@RequestBody String todo) throws JSONException {
-        //System.out.println(toDo.charAt(476));
-        JsonParser parser = new JsonParser();
-        JSONObject toDo = new JSONObject(todo);
+        JSONObject toDo = new JSONObject(data);
         System.out.println(toDo.toString());
-        //JsonObject todo = parser.parse(todo1.toString()).getAsJsonObject();
-        Document doc = Document.parse(todo);
-
-        //System.out.println(doc.toJson());
-        //doc.toJson();
-        mongoTemplate.execute("jSONObject", mongoCollection -> {
-            List<Document> lsit = new ArrayList<>();
-            //FindIterable<Document> cursor = mongoCollection.find();
-            //Iterator it = cursor.iterator();
-            //while (it.hasNext()){
-            //  lsit.add((Document) it.next());
-            //}
-            mongoCollection.insertOne(doc);
-            return lsit;
-        });
-        //mongoTemplate.save(toDo);
-        //mongoTemplate.save(doc);
-        //toDoRepository.save(todo);
+        Document doc = Document.parse(data);
+        service.insert("jSONObject",doc);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Reponse-from", "ToDoController");
-        //return ResponseEntity.accepted().headers(headers).body(todo);
-
         return new ResponseEntity(toDo.toString(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/getmodel")
-    public List<Document> retrieveToDo() {
-        Query query = new Query();
-        //query.addCriteria(Criteria.where("nameValuePairs.partner").is(name));
-
-        System.out.println(query.toString());
-        return mongoTemplate.execute("jSONObject", mongoCollection -> {
-            List<Document> lsit = new ArrayList<>();
-            FindIterable<Document> cursor = mongoCollection.find();
-            Iterator it = cursor.iterator();
-            while (it.hasNext()) {
-                lsit.add((Document) it.next());
-            }
-            return lsit;
-        });
+    @GetMapping("/config")
+    public List<Document> retrieveConfig() {
+        return service.findAll("jSONObject");
 
     }
 
@@ -95,9 +61,8 @@ public class Controller {
         return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
     }
 
-    @PostMapping("/postdata")
+    @PostMapping("/response")
     public String getData(@RequestBody String data) throws Exception {
-        //JsonParser parser = new JsonParser();
         JSONObject jsonData = new JSONObject(data);
         HashMap<String, String> map;
         OkHttpClient client = new OkHttpClient();
@@ -107,59 +72,55 @@ public class Controller {
             ObjectMapper mapper = new ObjectMapper();
             map = (HashMap<String, String>) mapper.readValue(jsonData.get("formData").toString(), new TypeReference<Map<String, String>>() {
             });
-            String combine="=";
-            String combine1="&";
-            String combine2="?";
-            if(apiData.getString("uriType").equals("/")){
-                combine="/";
-                combine1="/";
-                combine2="";
+            String combine = "=";
+            String combine1 = "&";
+            String combine2 = "?";
+            if (apiData.getString("uriType").equals("/")) {
+                combine = "/";
+                combine1 = "/";
+                combine2 = "";
             }
-                HashMap<String, String> finalMap = map;
+            HashMap<String, String> finalMap = map;
             String finalCombine = combine;
             String encodedURL = map.keySet().stream()
-                        .map(key -> {
-                                    try {
-                                        return key + finalCombine + encodeValue(finalMap.get(key));
-                                    } catch (UnsupportedEncodingException e) {
-                                        e.printStackTrace();
-                                    }
-                                    return "";
+                    .map(key -> {
+                                try {
+                                    return key + finalCombine + encodeValue(finalMap.get(key));
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
                                 }
+                                return "";
+                            }
 
-                        )
-                        .collect(joining(combine1, apiData.get("path") + combine2, ""));
-                System.out.println(encodedURL);
+                    )
+                    .collect(joining(combine1, apiData.get("path") + combine2, ""));
+            System.out.println(encodedURL);
 
             request = new Request.Builder().url(encodedURL);
-                request=request.get();
+            request = request.get();
 
         }
         if (apiData.get("method").equals("POST")) {
 
             okhttp3.RequestBody body = okhttp3.RequestBody.create(okhttp3.MediaType.get("application/json; charset=utf-8"), jsonData.get("formData").toString());
-            request=request.post(body);
+            request = request.post(body);
 
         }
-        JSONArray headers=apiData.getJSONArray("headers");
-        for(int i=0;i<headers.length();i++){
-            JSONObject header= (JSONObject) headers.get(i);
-            request=request.addHeader(header.getString("header"),header.getString("value"));
+        JSONArray headers = apiData.getJSONArray("headers");
+        for (int i = 0; i < headers.length(); i++) {
+            JSONObject header = (JSONObject) headers.get(i);
+            request = request.addHeader(header.getString("header"), header.getString("value"));
         }
         Call call = client.newCall(request.build());
         Response response = call.execute();
-        String resData=response.body().string();
-        JSONObject dbData=new JSONObject();
-        dbData.put("userData",jsonData.getJSONObject("formData"));
-        dbData.put("category",jsonData.getString("category"));
-        dbData.put("partner",jsonData.getString("partner"));
-        dbData.put("result",new JSONObject(resData));
+        String resData = response.body().string();
+        JSONObject dbData = new JSONObject();
+        dbData.put("userData", jsonData.getJSONObject("formData"));
+        dbData.put("category", jsonData.getString("category"));
+        dbData.put("partner", jsonData.getString("partner"));
+        dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
-        mongoTemplate.execute("requests", mongoCollection -> {
-            List<Document> lsit = new ArrayList<>();
-            mongoCollection.insertOne(doc);
-            return lsit;
-        });
+        service.insert("requests",doc);
         return resData;
     }
 
