@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.dao;
 
 import com.mongodb.client.FindIterable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @org.springframework.stereotype.Service
-public class Service {
+public class Dao {
     @Autowired
     MongoTemplate mongoTemplate;
 public void insert(String dbName, Document doc){

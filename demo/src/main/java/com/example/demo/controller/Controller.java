@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.ToDoRepository;
-import com.example.demo.service.Service;
+import com.example.demo.dao.Dao;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Call;
@@ -32,11 +31,9 @@ import static java.util.stream.Collectors.joining;
 @RequestMapping("/api")
 public class Controller {
     @Autowired
-    ToDoRepository toDoRepository;
-    @Autowired
     MongoTemplate mongoTemplate;
-@Autowired
-    Service service;
+    @Autowired
+    Dao dao;
 
     @PostMapping("/config")
     public ResponseEntity<String> addConfig(@RequestBody String data) throws JSONException {
@@ -44,7 +41,7 @@ public class Controller {
         JSONObject toDo = new JSONObject(data);
         System.out.println(toDo.toString());
         Document doc = Document.parse(data);
-        service.insert("jSONObject",doc);
+        dao.insert("jSONObject", doc);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Reponse-from", "ToDoController");
         return new ResponseEntity(toDo.toString(), headers, HttpStatus.OK);
@@ -52,7 +49,7 @@ public class Controller {
 
     @GetMapping("/config")
     public List<Document> retrieveConfig() {
-        return service.findAll("jSONObject");
+        return dao.findAll("jSONObject");
 
     }
 
@@ -119,7 +116,7 @@ public class Controller {
         dbData.put("partner", jsonData.getString("partner"));
         dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
-        service.insert("requests",doc);
+        dao.insert("requests", doc);
         return resData;
     }
 
