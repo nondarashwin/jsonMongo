@@ -55,6 +55,41 @@
       ],
       "predicates": [
         {
+          "contains": {
+            "path": "/motor-insurance/car-insurance/tata-aig/quote",
+            "method": "GET"
+          }
+        }
+      ]
+    },{
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "value": "Rs.12900p.a",
+              "benefits": "third party damage-30%,fiber 20%"
+            }
+          }
+        },
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "value": "Rs.12000p.a",
+              "benefits": "third party damage-30%,fiber 20%"
+            }
+          }
+        }
+      ],
+      "predicates": [
+        {
           "equals": {
             "path": "/motor-insurance/car-insurance/tata-aig/quote/vehicleNo/MH01A1234/fullName/rashwin/email/rashwinnonda@gmail.com/phoneNumber/9876543222",
             "method": "GET"

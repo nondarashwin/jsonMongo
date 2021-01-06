@@ -43,3 +43,11 @@
 {"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T08:00:42.876Z"}
 {"message":"[http:9000] ::ffff:127.0.0.1:59714 => GET /motor-insurance/car-insurance/bajaj-allianz?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T09:14:05.992Z"}
 {"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T09:14:06.339Z"}
+{"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T09:31:00.507Z"}
+{"message":"[http:9000] Ciao for now","level":"info","timestamp":"2021-01-06T09:31:00.566Z"}
+{"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T09:31:31.772Z"}
+{"message":"[mb:2525] POST /imposters","level":"info","timestamp":"2021-01-06T09:31:35.939Z"}
+{"message":"[http:9000] Open for business...","level":"info","timestamp":"2021-01-06T09:31:36.304Z"}
+{"message":"[http:9000] ::1:45164 => GET /motor-insurance/car-insurance/tata-aig/quote","level":"info","timestamp":"2021-01-06T09:34:51.049Z"}
+{"message":"[http:9000] ::1:45172 => GET /motor-insurance/car-insurance/tata-aig/quote&vehicleno=ka18n4817","level":"info","timestamp":"2021-01-06T09:35:27.135Z"}
+{"message":"[http:9000] ::1:45204 => GET /motor-insurance/car-insurance/tata-aig/quote/123","level":"info","timestamp":"2021-01-06T09:35:52.325Z"}
