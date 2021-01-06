@@ -131,6 +131,7 @@ public class Controller {
         dbData.put("product", jsonData.getString("partner"));
         dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
+        System.out.println(doc.toString());
         mongoTemplate.execute("requests", mongoCollection -> {
             List<org.bson.Document> lsit = new ArrayList<>();
             mongoCollection.insertOne(doc);
@@ -138,5 +139,4 @@ public class Controller {
         });
         return resData;
     }
-
 }
