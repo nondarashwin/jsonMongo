@@ -15,3 +15,18 @@
 {"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T03:12:33.463Z"}
 {"message":"[http:9000] ::1:35056 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&fullName=rashwin&email=rashwinnonda@gmail.com&phoneNumber=9876543222","level":"info","timestamp":"2021-01-06T03:13:14.689Z"}
 {"message":"[http:9000] ::1:35066 => GET /motor-insurance/car-insurance/tata-aig/quote/vehicleNo/MH01A1234/fullName/rashwin/email/rashwinnonda@gmail.com/phoneNumber/9876543222","level":"info","timestamp":"2021-01-06T03:16:00.523Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51418 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin%26email%3Drashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:23:11.643Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T04:23:11.828Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51420 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin%26email%3Drashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:23:46.325Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T04:23:46.332Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51422 => GET /favicon.ico","level":"info","timestamp":"2021-01-06T04:23:46.534Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T04:23:46.908Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51424 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin%26email%3Drashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:23:50.532Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T04:23:50.538Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51448 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:25:15.467Z"}
+{"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T04:45:11.433Z"}
+{"message":"[http:9000] Ciao for now","level":"info","timestamp":"2021-01-06T04:45:11.436Z"}
+{"message":"[mb:2525] POST /imposters","level":"info","timestamp":"2021-01-06T04:45:15.359Z"}
+{"message":"[http:9000] Open for business...","level":"info","timestamp":"2021-01-06T04:45:15.374Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51586 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:45:31.953Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:51590 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:45:35.812Z"}

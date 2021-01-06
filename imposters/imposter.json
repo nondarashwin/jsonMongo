@@ -39,6 +39,17 @@
               "benefits": "third party damage-30%,fiber 20%"
             }
           }
+        },{
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "value": "Rs.7000p.a",
+              "benefits": "third party damage-30%,fiber 20%"
+            }
+          }
         }
       ],
       "predicates": [
@@ -61,6 +72,17 @@
             "body": {
               "value": "Rs.6900p.a",
               "benefits": "third party damage-50%,fiber 30%"
+            }
+          }
+        },{
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "value": "Rs.6800p.a",
+              "benefits": "third party damage-20%,fiber 30%"
             }
           }
         }
