@@ -118,8 +118,10 @@ public class Controller {
         }
         JSONArray headers = apiData.getJSONArray("headers");
         for (int i = 0; i < headers.length(); i++) {
-            JSONObject header = (JSONObject) headers.get(i);
-            request = request.addHeader(header.getString("header"), header.getString("value"));
+            JSONObject header =  headers.getJSONObject(i);
+            if (!header.getString("header").equals("") && !header.getString("value").equals("")) {
+                request = request.addHeader(header.getString("header"), header.getString("value"));
+            }
         }
         Call call = client.newCall(request.build());
         Response response = call.execute();

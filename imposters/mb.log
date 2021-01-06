@@ -32,3 +32,8 @@
 {"message":"[http:9000] ::ffff:127.0.0.1:51590 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T04:45:35.812Z"}
 {"message":"[http:9000] ::ffff:127.0.0.1:51756 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T05:04:00.037Z"}
 {"message":"[http:9000] ::ffff:127.0.0.1:51758 => GET /motor-insurance/car-insurance/bajaj-allianz/quote?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T05:04:04.382Z"}
+{"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T06:08:40.064Z"}
+{"message":"[http:9000] Ciao for now","level":"info","timestamp":"2021-01-06T06:08:40.155Z"}
+{"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T06:08:45.266Z"}
+{"message":"[mb:2525] POST /imposters","level":"info","timestamp":"2021-01-06T06:08:52.027Z"}
+{"message":"[http:9000] Open for business...","level":"info","timestamp":"2021-01-06T06:08:52.246Z"}

@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -13,7 +14,13 @@ import java.util.List;
 public class Dao {
     @Autowired
     MongoTemplate mongoTemplate;
-public void insert(String dbName, Document doc){
+
+    public Dao() {
+        //MongoClient mongo = new MongoClient(  , 27017 );
+        //this.mongoTemplate = new MongoTemplate();
+    }
+
+    public void insert(String dbName, Document doc){
     System.out.println(doc.toString());
 System.out.println(dbName);
     mongoTemplate.save(doc,dbName);
