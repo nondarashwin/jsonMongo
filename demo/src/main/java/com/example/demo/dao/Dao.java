@@ -12,12 +12,11 @@ import java.util.List;
 
 
 public class Dao {
-    @Autowired
+
     MongoTemplate mongoTemplate;
 
-    public Dao() {
-        //MongoClient mongo = new MongoClient(  , 27017 );
-        //this.mongoTemplate = new MongoTemplate();
+    public Dao(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
     }
 
     public void insert(String dbName, Document doc){
@@ -43,11 +42,14 @@ public List<Document> findAll(String dbName){
     });
 }
 public List<Document> find(String dbName,Document doc){
+        //System.out.println(mongoTemplate);
     return mongoTemplate.execute(dbName, mongoCollection -> {
         List<Document> lsit = new ArrayList<>();
+        //System.out.println("no");
         FindIterable<Document> cursor = mongoCollection.find(doc);
         Iterator it = cursor.iterator();
         while (it.hasNext()) {
+            //System.out.println("yes");
             lsit.add((Document) it.next());
         }
         return lsit;

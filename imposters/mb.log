@@ -41,3 +41,5 @@
 {"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T07:58:58.193Z"}
 {"message":"[http:9000] ::ffff:127.0.0.1:56328 => GET /motor-insurance/car-insurance/bajaj-allianz?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T08:00:42.710Z"}
 {"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T08:00:42.876Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:59714 => GET /motor-insurance/car-insurance/bajaj-allianz?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T09:14:05.992Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T09:14:06.339Z"}

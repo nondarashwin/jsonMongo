@@ -31,19 +31,19 @@ import static java.util.stream.Collectors.joining;
 public class Controller {
     @Autowired
     MongoTemplate mongoTemplate;
-
+    Dao dao;
     @PostMapping("/config")
     public ResponseEntity<String> addConfig(@RequestBody String data) throws JSONException {
-
+dao=new Dao(mongoTemplate);
         JSONObject toDo = new JSONObject(data);
         System.out.println(toDo.toString());
         Document doc = Document.parse(data);
-
-        mongoTemplate.execute("jSONOBJECT", mongoCollection -> {
+        dao.find("requests",doc);
+        /*mongoTemplate.execute("jSONObject", mongoCollection -> {
             List<org.bson.Document> lsit = new ArrayList<>();
             mongoCollection.insertOne(doc);
             return lsit;
-        });
+        });*/
         HttpHeaders headers = new HttpHeaders();
         headers.add("Reponse-from", "ToDoController");
         return new ResponseEntity(toDo.toString(), headers, HttpStatus.OK);
@@ -51,11 +51,13 @@ public class Controller {
 
     @GetMapping("/config/{category}/{partner}/{product}")
     public List<Document> retrieveConfig(@PathVariable String category, @PathVariable String partner, @PathVariable String product) {
+        dao=new Dao(mongoTemplate);
         Document doc = new Document();
         doc.put("category", category);
         doc.put("partner", partner);
         doc.put("product", product);
-        return mongoTemplate.execute("jSONObject", mongoCollection -> {
+        return dao.find("jSONObject",doc);
+        /*return mongoTemplate.execute("jSONObject", mongoCollection -> {
             List<Document> lsit = new ArrayList<>();
             FindIterable<Document> cursor = mongoCollection.find(doc);
             Iterator it = cursor.iterator();
@@ -63,7 +65,7 @@ public class Controller {
                 lsit.add((Document) it.next());
             }
             return lsit;
-        });
+        });*/
 
     }
 
@@ -73,6 +75,7 @@ public class Controller {
 
     @PostMapping("/response")
     public String getData(@RequestBody String data) throws Exception {
+        dao=new Dao(mongoTemplate);
         JSONObject jsonData = new JSONObject(data);
         HashMap<String, String> map;
         OkHttpClient client = new OkHttpClient();
@@ -138,11 +141,12 @@ public class Controller {
         dbData.put("result", new JSONObject(resData));
         Document doc = Document.parse(dbData.toString());
         System.out.println(doc.toString());
-        mongoTemplate.execute("requests", mongoCollection -> {
+        /*mongoTemplate.execute("requests", mongoCollection -> {
             List<org.bson.Document> lsit = new ArrayList<>();
             mongoCollection.insertOne(doc);
             return lsit;
-        });
+        });*/
+        dao.find("requests",doc);
         return resData;
     }
 }
