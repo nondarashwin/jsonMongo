@@ -126,6 +126,10 @@ public class Controller {
         Call call = client.newCall(request.build());
         Response response = call.execute();
         String resData = response.body().string();
+        if(resData.equals("")){
+            resData="{message:\"no quotes\"}";
+        }
+        System.out.println("response:"+resData);
         JSONObject dbData = new JSONObject();
         dbData.put("userData", jsonData.getJSONObject("formData"));
         dbData.put("category", jsonData.getString("category"));

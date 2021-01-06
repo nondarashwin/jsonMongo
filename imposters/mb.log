@@ -37,3 +37,7 @@
 {"message":"[mb:2525] DELETE /imposters/9000","level":"info","timestamp":"2021-01-06T06:08:45.266Z"}
 {"message":"[mb:2525] POST /imposters","level":"info","timestamp":"2021-01-06T06:08:52.027Z"}
 {"message":"[http:9000] Open for business...","level":"info","timestamp":"2021-01-06T06:08:52.246Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:56244 => GET /motor-insurance/car-insurance/bajaj-allianz?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T07:58:57.064Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T07:58:58.193Z"}
+{"message":"[http:9000] ::ffff:127.0.0.1:56328 => GET /motor-insurance/car-insurance/bajaj-allianz?vehicleNo=MH01A1234&phoneNumber=9876543222&fullName=rashwin&email=rashwinnonda%40gmail.com","level":"info","timestamp":"2021-01-06T08:00:42.710Z"}
+{"message":"[http:9000] no predicate match, using default response","level":"info","timestamp":"2021-01-06T08:00:42.876Z"}
